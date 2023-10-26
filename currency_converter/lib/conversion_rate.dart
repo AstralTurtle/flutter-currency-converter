@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 void main(List<String> args) {
   Apicaller a = Apicaller();
@@ -21,6 +22,8 @@ class Apicaller {
     var currenciesURL = Uri.https('cdn.jsdelivr.net',
         '/gh/fawazahmed0/currency-api@1/latest/currencies.json');
     var response = await client.get(currenciesURL);
-    return response.body.split(',');
+    var jsonResponse = convert.jsonDecode(response.body);
+    var currencies = jsonResponse.toString().split(',');
+    return currencies;
   }
 }
